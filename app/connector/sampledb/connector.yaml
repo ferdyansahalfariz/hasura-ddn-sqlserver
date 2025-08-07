@@ -1,0 +1,16 @@
+kind: Connector
+version: v2
+definition:
+  name: sampledb
+  subgraph: app
+  source: hasura/sqlserver:v2.0.2
+  context: .
+  envMapping:
+    CONNECTION_URI:
+      fromEnv: APP_SAMPLEDB_CONNECTION_URI
+    HASURA_SERVICE_TOKEN_SECRET:
+      fromEnv: APP_SAMPLEDB_HASURA_SERVICE_TOKEN_SECRET
+    OTEL_EXPORTER_OTLP_ENDPOINT:
+      fromEnv: APP_SAMPLEDB_OTEL_EXPORTER_OTLP_ENDPOINT
+    OTEL_SERVICE_NAME:
+      fromEnv: APP_SAMPLEDB_OTEL_SERVICE_NAME

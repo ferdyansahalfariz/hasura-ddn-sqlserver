@@ -1,0 +1,19 @@
+kind: Subgraph
+version: v2
+definition:
+  name: app
+  generator:
+    rootPath: .
+    namingConvention: graphql
+  includePaths:
+    - metadata
+  envMapping:
+    APP_SAMPLEDB_AUTHORIZATION_HEADER:
+      fromEnv: APP_SAMPLEDB_AUTHORIZATION_HEADER
+    APP_SAMPLEDB_READ_URL:
+      fromEnv: APP_SAMPLEDB_READ_URL
+    APP_SAMPLEDB_WRITE_URL:
+      fromEnv: APP_SAMPLEDB_WRITE_URL
+  connectors:
+    - path: connector/sampledb/connector.yaml
+      connectorLinkName: sampledb

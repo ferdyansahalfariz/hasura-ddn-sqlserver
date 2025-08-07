@@ -1,0 +1,132 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: Departments
+  fields:
+    - name: departmentId
+      type: Int32!
+    - name: departmentName
+      type: String_1
+  graphql:
+    typeName: Departments
+    inputTypeName: DepartmentsInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: sampledb
+      dataConnectorObjectType: Departments
+      fieldMapping:
+        departmentId:
+          column:
+            name: DepartmentID
+        departmentName:
+          column:
+            name: DepartmentName
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: Departments
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - departmentId
+          - departmentName
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: DepartmentsBoolExp
+  operand:
+    object:
+      type: Departments
+      comparableFields:
+        - fieldName: departmentId
+          booleanExpressionType: IntBoolExp
+        - fieldName: departmentName
+          booleanExpressionType: NvarcharBoolExp
+      comparableRelationships: []
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: DepartmentsBoolExp
+
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: DepartmentsAggExp
+  operand:
+    object:
+      aggregatedType: Departments
+      aggregatableFields:
+        - fieldName: departmentId
+          aggregateExpression: IntAggExp
+        - fieldName: departmentName
+          aggregateExpression: NvarcharAggExp
+  count:
+    enable: true
+  graphql:
+    selectTypeName: DepartmentsAggExp
+
+---
+kind: OrderByExpression
+version: v1
+definition:
+  name: DepartmentsOrderByExp
+  operand:
+    object:
+      orderedType: Departments
+      orderableFields:
+        - fieldName: departmentId
+          orderByExpression: Int32OrderByExp
+        - fieldName: departmentName
+          orderByExpression: String1OrderByExp
+      orderableRelationships: []
+  graphql:
+    expressionTypeName: DepartmentsOrderByExp
+
+---
+kind: Model
+version: v2
+definition:
+  name: Departments
+  objectType: Departments
+  source:
+    dataConnectorName: sampledb
+    collection: Departments
+  filterExpressionType: DepartmentsBoolExp
+  aggregateExpression: DepartmentsAggExp
+  orderByExpression: DepartmentsOrderByExp
+  graphql:
+    selectMany:
+      queryRootField: departments
+      subscription:
+        rootField: departments
+    selectUniques:
+      - queryRootField: departmentsByDepartmentId
+        uniqueIdentifier:
+          - departmentId
+        subscription:
+          rootField: departmentsByDepartmentId
+    filterInputTypeName: DepartmentsFilterInput
+    aggregate:
+      queryRootField: departmentsAggregate
+      subscription:
+        rootField: departmentsAggregate
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: Departments
+  permissions:
+    - role: admin
+      select:
+        filter: null
+        allowSubscriptions: true
+

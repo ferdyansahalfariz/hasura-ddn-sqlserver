@@ -1,0 +1,431 @@
+---
+kind: ScalarType
+version: v1
+definition:
+  name: Int32
+  graphql:
+    typeName: Int32
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: IntBoolExp
+  operand:
+    scalar:
+      type: Int32
+      comparisonOperators:
+        - name: _eq
+          argumentType: Int32!
+        - name: _gt
+          argumentType: Int32!
+        - name: _gte
+          argumentType: Int32!
+        - name: _in
+          argumentType: "[Int32!]!"
+        - name: _lt
+          argumentType: Int32!
+        - name: _lte
+          argumentType: Int32!
+        - name: _neq
+          argumentType: Int32!
+      dataConnectorOperatorMapping:
+        - dataConnectorName: sampledb
+          dataConnectorScalarType: int
+          operatorMapping: {}
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: IntBoolExp
+
+---
+kind: DataConnectorScalarRepresentation
+version: v1
+definition:
+  dataConnectorName: sampledb
+  dataConnectorScalarType: int
+  representation: Int32
+  graphql:
+    comparisonExpressionTypeName: Int32ComparisonExp
+
+---
+kind: ScalarType
+version: v1
+definition:
+  name: String_1
+  graphql:
+    typeName: String1
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: NvarcharBoolExp
+  operand:
+    scalar:
+      type: String_1
+      comparisonOperators:
+        - name: _eq
+          argumentType: String_1!
+        - name: _gt
+          argumentType: String_1!
+        - name: _gte
+          argumentType: String_1!
+        - name: _in
+          argumentType: "[String_1!]!"
+        - name: _like
+          argumentType: String_1!
+        - name: _lt
+          argumentType: String_1!
+        - name: _lte
+          argumentType: String_1!
+        - name: _neq
+          argumentType: String_1!
+        - name: _nlike
+          argumentType: String_1!
+      dataConnectorOperatorMapping:
+        - dataConnectorName: sampledb
+          dataConnectorScalarType: nvarchar
+          operatorMapping: {}
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: NvarcharBoolExp
+
+---
+kind: DataConnectorScalarRepresentation
+version: v1
+definition:
+  dataConnectorName: sampledb
+  dataConnectorScalarType: nvarchar
+  representation: String_1
+  graphql:
+    comparisonExpressionTypeName: String1ComparisonExp
+
+---
+kind: ScalarType
+version: v1
+definition:
+  name: Int64
+  graphql:
+    typeName: Int64
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: BigintBoolExp
+  operand:
+    scalar:
+      type: Int64
+      comparisonOperators:
+        - name: _eq
+          argumentType: Int64!
+        - name: _gt
+          argumentType: Int64!
+        - name: _gte
+          argumentType: Int64!
+        - name: _in
+          argumentType: "[Int64!]!"
+        - name: _lt
+          argumentType: Int64!
+        - name: _lte
+          argumentType: Int64!
+        - name: _neq
+          argumentType: Int64!
+      dataConnectorOperatorMapping:
+        - dataConnectorName: sampledb
+          dataConnectorScalarType: bigint
+          operatorMapping: {}
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: BigintBoolExp
+
+---
+kind: DataConnectorScalarRepresentation
+version: v1
+definition:
+  dataConnectorName: sampledb
+  dataConnectorScalarType: bigint
+  representation: Int64
+  graphql:
+    comparisonExpressionTypeName: Int64ComparisonExp
+
+---
+kind: ScalarType
+version: v1
+definition:
+  name: Float64
+  graphql:
+    typeName: Float64
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: FloatBoolExp
+  operand:
+    scalar:
+      type: Float64
+      comparisonOperators:
+        - name: _eq
+          argumentType: Float64!
+        - name: _gt
+          argumentType: Float64!
+        - name: _gte
+          argumentType: Float64!
+        - name: _in
+          argumentType: "[Float64!]!"
+        - name: _lt
+          argumentType: Float64!
+        - name: _lte
+          argumentType: Float64!
+        - name: _neq
+          argumentType: Float64!
+      dataConnectorOperatorMapping:
+        - dataConnectorName: sampledb
+          dataConnectorScalarType: float
+          operatorMapping: {}
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: FloatBoolExp
+
+---
+kind: DataConnectorScalarRepresentation
+version: v1
+definition:
+  dataConnectorName: sampledb
+  dataConnectorScalarType: float
+  representation: Float64
+  graphql:
+    comparisonExpressionTypeName: Float64ComparisonExp
+
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: IntAggExp
+  operand:
+    scalar:
+      aggregatedType: Int32
+      aggregationFunctions:
+        - name: APPROX_COUNT_DISTINCT
+          returnType: Int64!
+        - name: AVG
+          returnType: Int32!
+        - name: COUNT
+          returnType: Int32!
+        - name: COUNT_BIG
+          returnType: Int64!
+        - name: MAX
+          returnType: Int32!
+        - name: MIN
+          returnType: Int32!
+        - name: STDEV
+          returnType: Float64!
+        - name: STDEVP
+          returnType: Float64!
+        - name: SUM
+          returnType: Int32!
+        - name: VAR
+          returnType: Float64!
+        - name: VARP
+          returnType: Float64!
+      dataConnectorAggregationFunctionMapping:
+        - dataConnectorName: sampledb
+          dataConnectorScalarType: int
+          functionMapping:
+            APPROX_COUNT_DISTINCT:
+              name: APPROX_COUNT_DISTINCT
+            AVG:
+              name: AVG
+            COUNT:
+              name: COUNT
+            COUNT_BIG:
+              name: COUNT_BIG
+            MAX:
+              name: MAX
+            MIN:
+              name: MIN
+            STDEV:
+              name: STDEV
+            STDEVP:
+              name: STDEVP
+            SUM:
+              name: SUM
+            VAR:
+              name: VAR
+            VARP:
+              name: VARP
+  count:
+    enable: true
+  countDistinct:
+    enable: true
+  graphql:
+    selectTypeName: IntAggExp
+
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: NvarcharAggExp
+  operand:
+    scalar:
+      aggregatedType: String_1
+      aggregationFunctions:
+        - name: APPROX_COUNT_DISTINCT
+          returnType: Int64!
+        - name: COUNT
+          returnType: Int32!
+        - name: COUNT_BIG
+          returnType: Int64!
+      dataConnectorAggregationFunctionMapping:
+        - dataConnectorName: sampledb
+          dataConnectorScalarType: nvarchar
+          functionMapping:
+            APPROX_COUNT_DISTINCT:
+              name: APPROX_COUNT_DISTINCT
+            COUNT:
+              name: COUNT
+            COUNT_BIG:
+              name: COUNT_BIG
+  count:
+    enable: true
+  countDistinct:
+    enable: true
+  graphql:
+    selectTypeName: NvarcharAggExp
+
+---
+kind: OrderByExpression
+version: v1
+definition:
+  name: Int32OrderByExp
+  operand:
+    scalar:
+      orderedType: Int32
+      enableOrderByDirections:
+        enableAll: true
+  graphql:
+    expressionTypeName: Int32OrderByExp
+
+---
+kind: OrderByExpression
+version: v1
+definition:
+  name: String1OrderByExp
+  operand:
+    scalar:
+      orderedType: String_1
+      enableOrderByDirections:
+        enableAll: true
+  graphql:
+    expressionTypeName: String1OrderByExp
+
+---
+kind: ScalarType
+version: v1
+definition:
+  name: Date
+  graphql:
+    typeName: Date
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: DateBoolExp
+  operand:
+    scalar:
+      type: Date
+      comparisonOperators:
+        - name: _eq
+          argumentType: Date!
+        - name: _gt
+          argumentType: Date!
+        - name: _gte
+          argumentType: Date!
+        - name: _in
+          argumentType: "[Date!]!"
+        - name: _lt
+          argumentType: Date!
+        - name: _lte
+          argumentType: Date!
+        - name: _neq
+          argumentType: Date!
+      dataConnectorOperatorMapping:
+        - dataConnectorName: sampledb
+          dataConnectorScalarType: date
+          operatorMapping: {}
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: DateBoolExp
+
+---
+kind: DataConnectorScalarRepresentation
+version: v1
+definition:
+  dataConnectorName: sampledb
+  dataConnectorScalarType: date
+  representation: Date
+  graphql:
+    comparisonExpressionTypeName: DateComparisonExp
+
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: DateAggExp
+  operand:
+    scalar:
+      aggregatedType: Date
+      aggregationFunctions:
+        - name: APPROX_COUNT_DISTINCT
+          returnType: Int64!
+        - name: COUNT
+          returnType: Int32!
+        - name: COUNT_BIG
+          returnType: Int64!
+      dataConnectorAggregationFunctionMapping:
+        - dataConnectorName: sampledb
+          dataConnectorScalarType: date
+          functionMapping:
+            APPROX_COUNT_DISTINCT:
+              name: APPROX_COUNT_DISTINCT
+            COUNT:
+              name: COUNT
+            COUNT_BIG:
+              name: COUNT_BIG
+  count:
+    enable: true
+  countDistinct:
+    enable: true
+  graphql:
+    selectTypeName: DateAggExp
+
+---
+kind: OrderByExpression
+version: v1
+definition:
+  name: DateOrderByExp
+  operand:
+    scalar:
+      orderedType: Date
+      enableOrderByDirections:
+        enableAll: true
+  graphql:
+    expressionTypeName: DateOrderByExp
+

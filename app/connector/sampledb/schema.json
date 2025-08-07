@@ -1,0 +1,531 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "RawConfiguration",
+  "description": "User configuration.",
+  "type": "object",
+  "required": [
+    "metadata",
+    "mssql_connection_string",
+    "version"
+  ],
+  "properties": {
+    "version": {
+      "type": "integer",
+      "format": "uint32",
+      "minimum": 0.0
+    },
+    "mssql_connection_string": {
+      "$ref": "#/definitions/ConnectionUri"
+    },
+    "metadata": {
+      "$ref": "#/definitions/Metadata"
+    }
+  },
+  "definitions": {
+    "ConnectionUri": {
+      "$ref": "#/definitions/Secret"
+    },
+    "Secret": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "object",
+          "required": [
+            "variable"
+          ],
+          "properties": {
+            "variable": {
+              "$ref": "#/definitions/Variable"
+            }
+          }
+        }
+      ]
+    },
+    "Variable": {
+      "description": "The name of an an environment variable.",
+      "type": "string"
+    },
+    "Metadata": {
+      "description": "Metadata information.",
+      "type": "object",
+      "properties": {
+        "tables": {
+          "default": {},
+          "allOf": [
+            {
+              "$ref": "#/definitions/TablesInfo"
+            }
+          ]
+        },
+        "nativeQueries": {
+          "default": {},
+          "allOf": [
+            {
+              "$ref": "#/definitions/NativeQueries"
+            }
+          ]
+        },
+        "nativeMutations": {
+          "default": {},
+          "allOf": [
+            {
+              "$ref": "#/definitions/NativeMutations"
+            }
+          ]
+        },
+        "aggregateFunctions": {
+          "default": {},
+          "allOf": [
+            {
+              "$ref": "#/definitions/AggregateFunctions"
+            }
+          ]
+        },
+        "comparisonOperators": {
+          "default": {},
+          "allOf": [
+            {
+              "$ref": "#/definitions/ComparisonOperators"
+            }
+          ]
+        },
+        "storedProcedures": {
+          "default": {},
+          "allOf": [
+            {
+              "$ref": "#/definitions/StoredProcedures"
+            }
+          ]
+        }
+      }
+    },
+    "TablesInfo": {
+      "description": "Mapping from a \"table\" name to its information.",
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/definitions/TableInfo"
+      }
+    },
+    "TableInfo": {
+      "description": "Information about a database table (or any other kind of relation).",
+      "type": "object",
+      "required": [
+        "columns",
+        "schemaName",
+        "tableName"
+      ],
+      "properties": {
+        "schemaName": {
+          "type": "string"
+        },
+        "tableName": {
+          "type": "string"
+        },
+        "columns": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/ColumnInfo"
+          }
+        },
+        "uniquenessConstraints": {
+          "default": {},
+          "allOf": [
+            {
+              "$ref": "#/definitions/UniquenessConstraints"
+            }
+          ]
+        },
+        "foreignRelations": {
+          "default": {},
+          "allOf": [
+            {
+              "$ref": "#/definitions/ForeignRelations"
+            }
+          ]
+        },
+        "description": {
+          "default": null,
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "ColumnInfo": {
+      "description": "Information about a database column.",
+      "type": "object",
+      "required": [
+        "name",
+        "type"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "type": {
+          "$ref": "#/definitions/ScalarType"
+        },
+        "nullable": {
+          "default": "nullable",
+          "allOf": [
+            {
+              "$ref": "#/definitions/Nullable"
+            }
+          ]
+        },
+        "description": {
+          "default": null,
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "ScalarType": {
+      "description": "The scalar types supported by the Engine.",
+      "type": "string"
+    },
+    "Nullable": {
+      "description": "Can this column contain null values",
+      "type": "string",
+      "enum": [
+        "nullable",
+        "nonNullable"
+      ]
+    },
+    "UniquenessConstraints": {
+      "description": "A mapping from the name of a unique constraint to its value.",
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/definitions/UniquenessConstraint"
+      }
+    },
+    "UniquenessConstraint": {
+      "description": "The set of columns that make up a uniqueness constraint.",
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "ForeignRelations": {
+      "description": "A mapping from the name of a foreign key constraint to its value.",
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/definitions/ForeignRelation"
+      }
+    },
+    "ForeignRelation": {
+      "description": "A foreign key constraint.",
+      "type": "object",
+      "required": [
+        "columnMapping",
+        "foreignTable"
+      ],
+      "properties": {
+        "foreignTable": {
+          "type": "string"
+        },
+        "columnMapping": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "NativeQueries": {
+      "description": "Metadata information of native queries.",
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/definitions/NativeQueryInfo"
+      }
+    },
+    "NativeQueryInfo": {
+      "description": "Information about a Native Query.",
+      "type": "object",
+      "required": [
+        "columns",
+        "sql"
+      ],
+      "properties": {
+        "sql": {
+          "description": "SQL expression to use for the Native Query. We can interpolate values using `{{variable_name}}` syntax, such as `SELECT * FROM authors WHERE name = {{author_name}}`",
+          "allOf": [
+            {
+              "$ref": "#/definitions/Native_query_sql"
+            }
+          ]
+        },
+        "columns": {
+          "description": "Columns returned by the Native Query",
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/ColumnInfo"
+          }
+        },
+        "arguments": {
+          "description": "Names and types of arguments that can be passed to this Native Query",
+          "default": {},
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/ColumnInfo"
+          }
+        },
+        "description": {
+          "default": null,
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "Native_query_sql": {
+      "type": "string"
+    },
+    "NativeMutations": {
+      "description": "Metadata information of native mutations that are supposed to be tracked as mutations.",
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/definitions/NativeMutationInfo"
+      }
+    },
+    "NativeMutationInfo": {
+      "description": "Information about a Native Mutation.",
+      "type": "object",
+      "required": [
+        "columns",
+        "sql"
+      ],
+      "properties": {
+        "sql": {
+          "description": "SQL expression to use for the Native Query. We can interpolate values using `{{variable_name}}` syntax, such as `SELECT * FROM authors WHERE name = {{author_name}}`",
+          "allOf": [
+            {
+              "$ref": "#/definitions/Native_query_sql"
+            }
+          ]
+        },
+        "columns": {
+          "description": "Columns returned by the Native Query",
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/NativeMutationColumnInfo"
+          }
+        },
+        "arguments": {
+          "description": "Names and types of arguments that can be passed to this Native Query",
+          "default": {},
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/ColumnInfo"
+          }
+        },
+        "description": {
+          "default": null,
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "NativeMutationColumnInfo": {
+      "description": "Information about a native mutation column.",
+      "type": "object",
+      "required": [
+        "name",
+        "type"
+      ],
+      "properties": {
+        "castAs": {
+          "description": "The database type that the column should be cast as. For example, if a native mutation query returns a string for the column 'foo'. Then, this field can be an indicator to cast the value as an integer. When `cast_as` is `None`, the value is casted to `r#type`.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "name": {
+          "type": "string"
+        },
+        "type": {
+          "$ref": "#/definitions/ScalarType"
+        },
+        "nullable": {
+          "default": "nullable",
+          "allOf": [
+            {
+              "$ref": "#/definitions/Nullable"
+            }
+          ]
+        },
+        "description": {
+          "default": null,
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "AggregateFunctions": {
+      "description": "All supported aggregate functions, grouped by type.",
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": {
+          "$ref": "#/definitions/AggregateFunction"
+        }
+      }
+    },
+    "AggregateFunction": {
+      "type": "object",
+      "required": [
+        "returnType"
+      ],
+      "properties": {
+        "returnType": {
+          "$ref": "#/definitions/ScalarType"
+        }
+      }
+    },
+    "ComparisonOperators": {
+      "description": "The complete list of supported binary operators for scalar types. Not all of these are supported for every type.",
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": {
+          "$ref": "#/definitions/ComparisonOperator"
+        }
+      }
+    },
+    "ComparisonOperator": {
+      "description": "Represents a postgres binary comparison operator",
+      "type": "object",
+      "required": [
+        "argumentType",
+        "operatorKind",
+        "operatorName"
+      ],
+      "properties": {
+        "operatorName": {
+          "type": "string"
+        },
+        "argumentType": {
+          "$ref": "#/definitions/ScalarType"
+        },
+        "operatorKind": {
+          "$ref": "#/definitions/OperatorKind"
+        }
+      }
+    },
+    "OperatorKind": {
+      "description": "Is it a built-in operator, or a custom operator.",
+      "type": "string",
+      "enum": [
+        "equal",
+        "in",
+        "custom"
+      ]
+    },
+    "StoredProcedures": {
+      "description": "Metadata information of the stored procedures.",
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/definitions/StoredProcedureInfo"
+      }
+    },
+    "StoredProcedureInfo": {
+      "description": "Information about a stored procedure.",
+      "type": "object",
+      "required": [
+        "arguments",
+        "name",
+        "schema"
+      ],
+      "properties": {
+        "name": {
+          "description": "Name of the stored procedure",
+          "type": "string"
+        },
+        "schema": {
+          "description": "Name of the stored procedure's schema.",
+          "type": "string"
+        },
+        "arguments": {
+          "description": "Arguments to the stored procedure",
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/StoredProcedureArgumentInfo"
+          }
+        },
+        "returns": {
+          "description": "Columns returned by the stored procedure. This is set as optional because during the introspection, we won't know the return type of the stored procedure. We expect the user to fill this detail manually.",
+          "default": null,
+          "type": [
+            "object",
+            "null"
+          ],
+          "additionalProperties": {
+            "$ref": "#/definitions/ColumnInfo"
+          }
+        },
+        "description": {
+          "description": "Description of the stored procedure.",
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "StoredProcedureArgumentInfo": {
+      "description": "Information about a stored procedure's argument",
+      "type": "object",
+      "required": [
+        "name",
+        "nullable",
+        "type"
+      ],
+      "properties": {
+        "name": {
+          "description": "Name of the argument",
+          "type": "string"
+        },
+        "type": {
+          "description": "Type of the argument",
+          "allOf": [
+            {
+              "$ref": "#/definitions/ScalarType"
+            }
+          ]
+        },
+        "nullable": {
+          "description": "Nullability of the argument",
+          "allOf": [
+            {
+              "$ref": "#/definitions/Nullable"
+            }
+          ]
+        },
+        "isOutput": {
+          "description": "Indicator, if the argument is an `OUTPUT` argument of the stored procedure.",
+          "default": false,
+          "type": "boolean"
+        },
+        "description": {
+          "default": null,
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    }
+  }
+}

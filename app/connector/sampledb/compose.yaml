@@ -1,0 +1,14 @@
+services:
+  app_sampledb:
+    build:
+      context: .
+      dockerfile: .hasura-connector/Dockerfile.sampledb
+    environment:
+      CONNECTION_URI: $APP_SAMPLEDB_CONNECTION_URI
+      HASURA_SERVICE_TOKEN_SECRET: $APP_SAMPLEDB_HASURA_SERVICE_TOKEN_SECRET
+      OTEL_EXPORTER_OTLP_ENDPOINT: $APP_SAMPLEDB_OTEL_EXPORTER_OTLP_ENDPOINT
+      OTEL_SERVICE_NAME: $APP_SAMPLEDB_OTEL_SERVICE_NAME
+    extra_hosts:
+      - local.hasura.dev:host-gateway
+    ports:
+      - 6821:8080

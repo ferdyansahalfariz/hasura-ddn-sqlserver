@@ -1,0 +1,1960 @@
+kind: DataConnectorLink
+version: v1
+definition:
+  name: sampledb
+  url:
+    readWriteUrls:
+      read:
+        valueFromEnv: APP_SAMPLEDB_READ_URL
+      write:
+        valueFromEnv: APP_SAMPLEDB_WRITE_URL
+  headers:
+    Authorization:
+      valueFromEnv: APP_SAMPLEDB_AUTHORIZATION_HEADER
+  schema:
+    version: v0.1
+    schema:
+      collections:
+        - arguments: {}
+          foreign_keys: {}
+          name: Departments
+          type: Departments
+          uniqueness_constraints:
+            PK__Departme__B2079BCD0EC761DA:
+              unique_columns:
+                - DepartmentID
+        - arguments: {}
+          foreign_keys: {}
+          name: Employees
+          type: Employees
+          uniqueness_constraints:
+            PK__Employee__7AD04FF1F8297C7F:
+              unique_columns:
+                - EmployeeID
+      functions: []
+      object_types:
+        Departments:
+          fields:
+            DepartmentID:
+              type:
+                name: int
+                type: named
+            DepartmentName:
+              type:
+                type: nullable
+                underlying_type:
+                  name: nvarchar
+                  type: named
+        Employees:
+          fields:
+            Email:
+              type:
+                type: nullable
+                underlying_type:
+                  name: nvarchar
+                  type: named
+            EmployeeID:
+              type:
+                name: int
+                type: named
+            FirstName:
+              type:
+                type: nullable
+                underlying_type:
+                  name: nvarchar
+                  type: named
+            HireDate:
+              type:
+                type: nullable
+                underlying_type:
+                  name: date
+                  type: named
+            LastName:
+              type:
+                type: nullable
+                underlying_type:
+                  name: nvarchar
+                  type: named
+      procedures: []
+      scalar_types:
+        bigint:
+          aggregate_functions:
+            APPROX_COUNT_DISTINCT:
+              result_type:
+                name: bigint
+                type: named
+            AVG:
+              result_type:
+                name: bigint
+                type: named
+            COUNT:
+              result_type:
+                name: int
+                type: named
+            COUNT_BIG:
+              result_type:
+                name: bigint
+                type: named
+            MAX:
+              result_type:
+                name: bigint
+                type: named
+            MIN:
+              result_type:
+                name: bigint
+                type: named
+            STDEV:
+              result_type:
+                name: float
+                type: named
+            STDEVP:
+              result_type:
+                name: float
+                type: named
+            SUM:
+              result_type:
+                name: bigint
+                type: named
+            VAR:
+              result_type:
+                name: float
+                type: named
+            VARP:
+              result_type:
+                name: float
+                type: named
+          comparison_operators:
+            _eq:
+              type: equal
+            _gt:
+              argument_type:
+                name: bigint
+                type: named
+              type: custom
+            _gte:
+              argument_type:
+                name: bigint
+                type: named
+              type: custom
+            _in:
+              type: in
+            _lt:
+              argument_type:
+                name: bigint
+                type: named
+              type: custom
+            _lte:
+              argument_type:
+                name: bigint
+                type: named
+              type: custom
+            _neq:
+              argument_type:
+                name: bigint
+                type: named
+              type: custom
+          representation:
+            type: int64
+        binary:
+          aggregate_functions:
+            APPROX_COUNT_DISTINCT:
+              result_type:
+                name: bigint
+                type: named
+            COUNT:
+              result_type:
+                name: int
+                type: named
+            COUNT_BIG:
+              result_type:
+                name: bigint
+                type: named
+          comparison_operators:
+            _eq:
+              type: equal
+            _gt:
+              argument_type:
+                name: binary
+                type: named
+              type: custom
+            _gte:
+              argument_type:
+                name: binary
+                type: named
+              type: custom
+            _in:
+              type: in
+            _lt:
+              argument_type:
+                name: binary
+                type: named
+              type: custom
+            _lte:
+              argument_type:
+                name: binary
+                type: named
+              type: custom
+            _neq:
+              argument_type:
+                name: binary
+                type: named
+              type: custom
+          representation:
+            type: string
+        bit:
+          aggregate_functions:
+            APPROX_COUNT_DISTINCT:
+              result_type:
+                name: bigint
+                type: named
+            COUNT:
+              result_type:
+                name: int
+                type: named
+            COUNT_BIG:
+              result_type:
+                name: bigint
+                type: named
+          comparison_operators:
+            _eq:
+              type: equal
+            _gt:
+              argument_type:
+                name: bit
+                type: named
+              type: custom
+            _gte:
+              argument_type:
+                name: bit
+                type: named
+              type: custom
+            _in:
+              type: in
+            _lt:
+              argument_type:
+                name: bit
+                type: named
+              type: custom
+            _lte:
+              argument_type:
+                name: bit
+                type: named
+              type: custom
+            _neq:
+              argument_type:
+                name: bit
+                type: named
+              type: custom
+          representation:
+            type: boolean
+        char:
+          aggregate_functions:
+            APPROX_COUNT_DISTINCT:
+              result_type:
+                name: bigint
+                type: named
+            COUNT:
+              result_type:
+                name: int
+                type: named
+            COUNT_BIG:
+              result_type:
+                name: bigint
+                type: named
+            MAX:
+              result_type:
+                name: char
+                type: named
+            MIN:
+              result_type:
+                name: char
+                type: named
+          comparison_operators:
+            _eq:
+              type: equal
+            _gt:
+              argument_type:
+                name: char
+                type: named
+              type: custom
+            _gte:
+              argument_type:
+                name: char
+                type: named
+              type: custom
+            _in:
+              type: in
+            _like:
+              argument_type:
+                name: char
+                type: named
+              type: custom
+            _lt:
+              argument_type:
+                name: char
+                type: named
+              type: custom
+            _lte:
+              argument_type:
+                name: char
+                type: named
+              type: custom
+            _neq:
+              argument_type:
+                name: char
+                type: named
+              type: custom
+            _nlike:
+              argument_type:
+                name: char
+                type: named
+              type: custom
+          representation:
+            type: string
+        date:
+          aggregate_functions:
+            APPROX_COUNT_DISTINCT:
+              result_type:
+                name: bigint
+                type: named
+            COUNT:
+              result_type:
+                name: int
+                type: named
+            COUNT_BIG:
+              result_type:
+                name: bigint
+                type: named
+          comparison_operators:
+            _eq:
+              type: equal
+            _gt:
+              argument_type:
+                name: date
+                type: named
+              type: custom
+            _gte:
+              argument_type:
+                name: date
+                type: named
+              type: custom
+            _in:
+              type: in
+            _lt:
+              argument_type:
+                name: date
+                type: named
+              type: custom
+            _lte:
+              argument_type:
+                name: date
+                type: named
+              type: custom
+            _neq:
+              argument_type:
+                name: date
+                type: named
+              type: custom
+          representation:
+            type: date
+        datetime:
+          aggregate_functions:
+            APPROX_COUNT_DISTINCT:
+              result_type:
+                name: bigint
+                type: named
+            COUNT:
+              result_type:
+                name: int
+                type: named
+            COUNT_BIG:
+              result_type:
+                name: bigint
+                type: named
+            MAX:
+              result_type:
+                name: datetime
+                type: named
+            MIN:
+              result_type:
+                name: datetime
+                type: named
+          comparison_operators:
+            _eq:
+              type: equal
+            _gt:
+              argument_type:
+                name: datetime
+                type: named
+              type: custom
+            _gte:
+              argument_type:
+                name: datetime
+                type: named
+              type: custom
+            _in:
+              type: in
+            _lt:
+              argument_type:
+                name: datetime
+                type: named
+              type: custom
+            _lte:
+              argument_type:
+                name: datetime
+                type: named
+              type: custom
+            _neq:
+              argument_type:
+                name: datetime
+                type: named
+              type: custom
+          representation:
+            type: timestamp
+        datetime2:
+          aggregate_functions:
+            APPROX_COUNT_DISTINCT:
+              result_type:
+                name: bigint
+                type: named
+            COUNT:
+              result_type:
+                name: int
+                type: named
+            COUNT_BIG:
+              result_type:
+                name: bigint
+                type: named
+          comparison_operators:
+            _eq:
+              type: equal
+            _gt:
+              argument_type:
+                name: datetime2
+                type: named
+              type: custom
+            _gte:
+              argument_type:
+                name: datetime2
+                type: named
+              type: custom
+            _in:
+              type: in
+            _lt:
+              argument_type:
+                name: datetime2
+                type: named
+              type: custom
+            _lte:
+              argument_type:
+                name: datetime2
+                type: named
+              type: custom
+            _neq:
+              argument_type:
+                name: datetime2
+                type: named
+              type: custom
+          representation:
+            type: timestamp
+        datetimeoffset:
+          aggregate_functions:
+            APPROX_COUNT_DISTINCT:
+              result_type:
+                name: bigint
+                type: named
+            COUNT:
+              result_type:
+                name: int
+                type: named
+            COUNT_BIG:
+              result_type:
+                name: bigint
+                type: named
+          comparison_operators:
+            _eq:
+              type: equal
+            _gt:
+              argument_type:
+                name: datetimeoffset
+                type: named
+              type: custom
+            _gte:
+              argument_type:
+                name: datetimeoffset
+                type: named
+              type: custom
+            _in:
+              type: in
+            _lt:
+              argument_type:
+                name: datetimeoffset
+                type: named
+              type: custom
+            _lte:
+              argument_type:
+                name: datetimeoffset
+                type: named
+              type: custom
+            _neq:
+              argument_type:
+                name: datetimeoffset
+                type: named
+              type: custom
+          representation:
+            type: timestamptz
+        decimal:
+          aggregate_functions:
+            APPROX_COUNT_DISTINCT:
+              result_type:
+                name: bigint
+                type: named
+            AVG:
+              result_type:
+                name: decimal
+                type: named
+            COUNT:
+              result_type:
+                name: int
+                type: named
+            COUNT_BIG:
+              result_type:
+                name: bigint
+                type: named
+            MAX:
+              result_type:
+                name: decimal
+                type: named
+            MIN:
+              result_type:
+                name: decimal
+                type: named
+            STDEV:
+              result_type:
+                name: float
+                type: named
+            STDEVP:
+              result_type:
+                name: float
+                type: named
+            SUM:
+              result_type:
+                name: decimal
+                type: named
+            VAR:
+              result_type:
+                name: float
+                type: named
+            VARP:
+              result_type:
+                name: float
+                type: named
+          comparison_operators:
+            _eq:
+              type: equal
+            _gt:
+              argument_type:
+                name: decimal
+                type: named
+              type: custom
+            _gte:
+              argument_type:
+                name: decimal
+                type: named
+              type: custom
+            _in:
+              type: in
+            _lt:
+              argument_type:
+                name: decimal
+                type: named
+              type: custom
+            _lte:
+              argument_type:
+                name: decimal
+                type: named
+              type: custom
+            _neq:
+              argument_type:
+                name: decimal
+                type: named
+              type: custom
+          representation:
+            type: bigdecimal
+        float:
+          aggregate_functions:
+            APPROX_COUNT_DISTINCT:
+              result_type:
+                name: bigint
+                type: named
+            AVG:
+              result_type:
+                name: float
+                type: named
+            COUNT:
+              result_type:
+                name: int
+                type: named
+            COUNT_BIG:
+              result_type:
+                name: bigint
+                type: named
+            MAX:
+              result_type:
+                name: float
+                type: named
+            MIN:
+              result_type:
+                name: float
+                type: named
+            STDEV:
+              result_type:
+                name: float
+                type: named
+            STDEVP:
+              result_type:
+                name: float
+                type: named
+            SUM:
+              result_type:
+                name: float
+                type: named
+            VAR:
+              result_type:
+                name: float
+                type: named
+            VARP:
+              result_type:
+                name: float
+                type: named
+          comparison_operators:
+            _eq:
+              type: equal
+            _gt:
+              argument_type:
+                name: float
+                type: named
+              type: custom
+            _gte:
+              argument_type:
+                name: float
+                type: named
+              type: custom
+            _in:
+              type: in
+            _lt:
+              argument_type:
+                name: float
+                type: named
+              type: custom
+            _lte:
+              argument_type:
+                name: float
+                type: named
+              type: custom
+            _neq:
+              argument_type:
+                name: float
+                type: named
+              type: custom
+          representation:
+            type: float64
+        geography:
+          aggregate_functions:
+            APPROX_COUNT_DISTINCT:
+              result_type:
+                name: bigint
+                type: named
+            COUNT:
+              result_type:
+                name: int
+                type: named
+            COUNT_BIG:
+              result_type:
+                name: bigint
+                type: named
+          comparison_operators:
+            _eq:
+              type: equal
+            _gt:
+              argument_type:
+                name: geography
+                type: named
+              type: custom
+            _gte:
+              argument_type:
+                name: geography
+                type: named
+              type: custom
+            _in:
+              type: in
+            _lt:
+              argument_type:
+                name: geography
+                type: named
+              type: custom
+            _lte:
+              argument_type:
+                name: geography
+                type: named
+              type: custom
+            _neq:
+              argument_type:
+                name: geography
+                type: named
+              type: custom
+        geometry:
+          aggregate_functions:
+            APPROX_COUNT_DISTINCT:
+              result_type:
+                name: bigint
+                type: named
+            COUNT:
+              result_type:
+                name: int
+                type: named
+            COUNT_BIG:
+              result_type:
+                name: bigint
+                type: named
+          comparison_operators:
+            _eq:
+              type: equal
+            _gt:
+              argument_type:
+                name: geometry
+                type: named
+              type: custom
+            _gte:
+              argument_type:
+                name: geometry
+                type: named
+              type: custom
+            _in:
+              type: in
+            _lt:
+              argument_type:
+                name: geometry
+                type: named
+              type: custom
+            _lte:
+              argument_type:
+                name: geometry
+                type: named
+              type: custom
+            _neq:
+              argument_type:
+                name: geometry
+                type: named
+              type: custom
+        hierarchyid:
+          aggregate_functions:
+            APPROX_COUNT_DISTINCT:
+              result_type:
+                name: bigint
+                type: named
+            COUNT:
+              result_type:
+                name: int
+                type: named
+            COUNT_BIG:
+              result_type:
+                name: bigint
+                type: named
+          comparison_operators:
+            _eq:
+              type: equal
+            _gt:
+              argument_type:
+                name: hierarchyid
+                type: named
+              type: custom
+            _gte:
+              argument_type:
+                name: hierarchyid
+                type: named
+              type: custom
+            _in:
+              type: in
+            _lt:
+              argument_type:
+                name: hierarchyid
+                type: named
+              type: custom
+            _lte:
+              argument_type:
+                name: hierarchyid
+                type: named
+              type: custom
+            _neq:
+              argument_type:
+                name: hierarchyid
+                type: named
+              type: custom
+        image:
+          aggregate_functions:
+            COUNT_BIG:
+              result_type:
+                name: bigint
+                type: named
+          comparison_operators:
+            _eq:
+              type: equal
+            _in:
+              type: in
+          representation:
+            type: string
+        int:
+          aggregate_functions:
+            APPROX_COUNT_DISTINCT:
+              result_type:
+                name: bigint
+                type: named
+            AVG:
+              result_type:
+                name: int
+                type: named
+            COUNT:
+              result_type:
+                name: int
+                type: named
+            COUNT_BIG:
+              result_type:
+                name: bigint
+                type: named
+            MAX:
+              result_type:
+                name: int
+                type: named
+            MIN:
+              result_type:
+                name: int
+                type: named
+            STDEV:
+              result_type:
+                name: float
+                type: named
+            STDEVP:
+              result_type:
+                name: float
+                type: named
+            SUM:
+              result_type:
+                name: int
+                type: named
+            VAR:
+              result_type:
+                name: float
+                type: named
+            VARP:
+              result_type:
+                name: float
+                type: named
+          comparison_operators:
+            _eq:
+              type: equal
+            _gt:
+              argument_type:
+                name: int
+                type: named
+              type: custom
+            _gte:
+              argument_type:
+                name: int
+                type: named
+              type: custom
+            _in:
+              type: in
+            _lt:
+              argument_type:
+                name: int
+                type: named
+              type: custom
+            _lte:
+              argument_type:
+                name: int
+                type: named
+              type: custom
+            _neq:
+              argument_type:
+                name: int
+                type: named
+              type: custom
+          representation:
+            type: int32
+        money:
+          aggregate_functions:
+            APPROX_COUNT_DISTINCT:
+              result_type:
+                name: bigint
+                type: named
+            AVG:
+              result_type:
+                name: money
+                type: named
+            COUNT:
+              result_type:
+                name: int
+                type: named
+            COUNT_BIG:
+              result_type:
+                name: bigint
+                type: named
+            MAX:
+              result_type:
+                name: money
+                type: named
+            MIN:
+              result_type:
+                name: money
+                type: named
+            STDEV:
+              result_type:
+                name: float
+                type: named
+            STDEVP:
+              result_type:
+                name: float
+                type: named
+            SUM:
+              result_type:
+                name: money
+                type: named
+            VAR:
+              result_type:
+                name: float
+                type: named
+            VARP:
+              result_type:
+                name: float
+                type: named
+          comparison_operators:
+            _eq:
+              type: equal
+            _gt:
+              argument_type:
+                name: money
+                type: named
+              type: custom
+            _gte:
+              argument_type:
+                name: money
+                type: named
+              type: custom
+            _in:
+              type: in
+            _lt:
+              argument_type:
+                name: money
+                type: named
+              type: custom
+            _lte:
+              argument_type:
+                name: money
+                type: named
+              type: custom
+            _neq:
+              argument_type:
+                name: money
+                type: named
+              type: custom
+          representation:
+            type: bigdecimal
+        nchar:
+          aggregate_functions:
+            APPROX_COUNT_DISTINCT:
+              result_type:
+                name: bigint
+                type: named
+            COUNT:
+              result_type:
+                name: int
+                type: named
+            COUNT_BIG:
+              result_type:
+                name: bigint
+                type: named
+          comparison_operators:
+            _eq:
+              type: equal
+            _gt:
+              argument_type:
+                name: nchar
+                type: named
+              type: custom
+            _gte:
+              argument_type:
+                name: nchar
+                type: named
+              type: custom
+            _in:
+              type: in
+            _like:
+              argument_type:
+                name: nchar
+                type: named
+              type: custom
+            _lt:
+              argument_type:
+                name: nchar
+                type: named
+              type: custom
+            _lte:
+              argument_type:
+                name: nchar
+                type: named
+              type: custom
+            _neq:
+              argument_type:
+                name: nchar
+                type: named
+              type: custom
+            _nlike:
+              argument_type:
+                name: nchar
+                type: named
+              type: custom
+          representation:
+            type: string
+        ntext:
+          aggregate_functions:
+            COUNT_BIG:
+              result_type:
+                name: bigint
+                type: named
+          comparison_operators:
+            _eq:
+              type: equal
+            _in:
+              type: in
+            _like:
+              argument_type:
+                name: ntext
+                type: named
+              type: custom
+            _nlike:
+              argument_type:
+                name: ntext
+                type: named
+              type: custom
+          representation:
+            type: string
+        numeric:
+          aggregate_functions:
+            APPROX_COUNT_DISTINCT:
+              result_type:
+                name: bigint
+                type: named
+            COUNT:
+              result_type:
+                name: int
+                type: named
+            COUNT_BIG:
+              result_type:
+                name: bigint
+                type: named
+            MAX:
+              result_type:
+                name: numeric
+                type: named
+            MIN:
+              result_type:
+                name: numeric
+                type: named
+            STDEV:
+              result_type:
+                name: float
+                type: named
+            STDEVP:
+              result_type:
+                name: float
+                type: named
+            VAR:
+              result_type:
+                name: float
+                type: named
+            VARP:
+              result_type:
+                name: float
+                type: named
+          comparison_operators:
+            _eq:
+              type: equal
+            _gt:
+              argument_type:
+                name: numeric
+                type: named
+              type: custom
+            _gte:
+              argument_type:
+                name: numeric
+                type: named
+              type: custom
+            _in:
+              type: in
+            _lt:
+              argument_type:
+                name: numeric
+                type: named
+              type: custom
+            _lte:
+              argument_type:
+                name: numeric
+                type: named
+              type: custom
+            _neq:
+              argument_type:
+                name: numeric
+                type: named
+              type: custom
+          representation:
+            type: bigdecimal
+        nvarchar:
+          aggregate_functions:
+            APPROX_COUNT_DISTINCT:
+              result_type:
+                name: bigint
+                type: named
+            COUNT:
+              result_type:
+                name: int
+                type: named
+            COUNT_BIG:
+              result_type:
+                name: bigint
+                type: named
+          comparison_operators:
+            _eq:
+              type: equal
+            _gt:
+              argument_type:
+                name: nvarchar
+                type: named
+              type: custom
+            _gte:
+              argument_type:
+                name: nvarchar
+                type: named
+              type: custom
+            _in:
+              type: in
+            _like:
+              argument_type:
+                name: nvarchar
+                type: named
+              type: custom
+            _lt:
+              argument_type:
+                name: nvarchar
+                type: named
+              type: custom
+            _lte:
+              argument_type:
+                name: nvarchar
+                type: named
+              type: custom
+            _neq:
+              argument_type:
+                name: nvarchar
+                type: named
+              type: custom
+            _nlike:
+              argument_type:
+                name: nvarchar
+                type: named
+              type: custom
+          representation:
+            type: string
+        real:
+          aggregate_functions:
+            APPROX_COUNT_DISTINCT:
+              result_type:
+                name: bigint
+                type: named
+            AVG:
+              result_type:
+                name: float
+                type: named
+            COUNT:
+              result_type:
+                name: int
+                type: named
+            COUNT_BIG:
+              result_type:
+                name: bigint
+                type: named
+            MAX:
+              result_type:
+                name: real
+                type: named
+            MIN:
+              result_type:
+                name: real
+                type: named
+            STDEV:
+              result_type:
+                name: float
+                type: named
+            STDEVP:
+              result_type:
+                name: float
+                type: named
+            SUM:
+              result_type:
+                name: float
+                type: named
+            VAR:
+              result_type:
+                name: float
+                type: named
+            VARP:
+              result_type:
+                name: float
+                type: named
+          comparison_operators:
+            _eq:
+              type: equal
+            _gt:
+              argument_type:
+                name: real
+                type: named
+              type: custom
+            _gte:
+              argument_type:
+                name: real
+                type: named
+              type: custom
+            _in:
+              type: in
+            _lt:
+              argument_type:
+                name: real
+                type: named
+              type: custom
+            _lte:
+              argument_type:
+                name: real
+                type: named
+              type: custom
+            _neq:
+              argument_type:
+                name: real
+                type: named
+              type: custom
+          representation:
+            type: float32
+        smalldatetime:
+          aggregate_functions:
+            APPROX_COUNT_DISTINCT:
+              result_type:
+                name: bigint
+                type: named
+            COUNT:
+              result_type:
+                name: int
+                type: named
+            COUNT_BIG:
+              result_type:
+                name: bigint
+                type: named
+          comparison_operators:
+            _eq:
+              type: equal
+            _gt:
+              argument_type:
+                name: smalldatetime
+                type: named
+              type: custom
+            _gte:
+              argument_type:
+                name: smalldatetime
+                type: named
+              type: custom
+            _in:
+              type: in
+            _lt:
+              argument_type:
+                name: smalldatetime
+                type: named
+              type: custom
+            _lte:
+              argument_type:
+                name: smalldatetime
+                type: named
+              type: custom
+            _neq:
+              argument_type:
+                name: smalldatetime
+                type: named
+              type: custom
+          representation:
+            type: timestamp
+        smallint:
+          aggregate_functions:
+            APPROX_COUNT_DISTINCT:
+              result_type:
+                name: bigint
+                type: named
+            AVG:
+              result_type:
+                name: int
+                type: named
+            COUNT:
+              result_type:
+                name: int
+                type: named
+            COUNT_BIG:
+              result_type:
+                name: bigint
+                type: named
+            MAX:
+              result_type:
+                name: smallint
+                type: named
+            MIN:
+              result_type:
+                name: smallint
+                type: named
+            STDEV:
+              result_type:
+                name: float
+                type: named
+            STDEVP:
+              result_type:
+                name: float
+                type: named
+            SUM:
+              result_type:
+                name: int
+                type: named
+            VAR:
+              result_type:
+                name: float
+                type: named
+            VARP:
+              result_type:
+                name: float
+                type: named
+          comparison_operators:
+            _eq:
+              type: equal
+            _gt:
+              argument_type:
+                name: smallint
+                type: named
+              type: custom
+            _gte:
+              argument_type:
+                name: smallint
+                type: named
+              type: custom
+            _in:
+              type: in
+            _lt:
+              argument_type:
+                name: smallint
+                type: named
+              type: custom
+            _lte:
+              argument_type:
+                name: smallint
+                type: named
+              type: custom
+            _neq:
+              argument_type:
+                name: smallint
+                type: named
+              type: custom
+          representation:
+            type: int16
+        smallmoney:
+          aggregate_functions:
+            APPROX_COUNT_DISTINCT:
+              result_type:
+                name: bigint
+                type: named
+            AVG:
+              result_type:
+                name: money
+                type: named
+            COUNT:
+              result_type:
+                name: int
+                type: named
+            COUNT_BIG:
+              result_type:
+                name: bigint
+                type: named
+            MAX:
+              result_type:
+                name: smallmoney
+                type: named
+            MIN:
+              result_type:
+                name: smallmoney
+                type: named
+            STDEV:
+              result_type:
+                name: float
+                type: named
+            STDEVP:
+              result_type:
+                name: float
+                type: named
+            SUM:
+              result_type:
+                name: money
+                type: named
+            VAR:
+              result_type:
+                name: float
+                type: named
+            VARP:
+              result_type:
+                name: float
+                type: named
+          comparison_operators:
+            _eq:
+              type: equal
+            _gt:
+              argument_type:
+                name: smallmoney
+                type: named
+              type: custom
+            _gte:
+              argument_type:
+                name: smallmoney
+                type: named
+              type: custom
+            _in:
+              type: in
+            _lt:
+              argument_type:
+                name: smallmoney
+                type: named
+              type: custom
+            _lte:
+              argument_type:
+                name: smallmoney
+                type: named
+              type: custom
+            _neq:
+              argument_type:
+                name: smallmoney
+                type: named
+              type: custom
+          representation:
+            type: bigdecimal
+        sql_variant:
+          aggregate_functions:
+            COUNT:
+              result_type:
+                name: int
+                type: named
+            COUNT_BIG:
+              result_type:
+                name: bigint
+                type: named
+          comparison_operators:
+            _eq:
+              type: equal
+            _gt:
+              argument_type:
+                name: sql_variant
+                type: named
+              type: custom
+            _gte:
+              argument_type:
+                name: sql_variant
+                type: named
+              type: custom
+            _in:
+              type: in
+            _lt:
+              argument_type:
+                name: sql_variant
+                type: named
+              type: custom
+            _lte:
+              argument_type:
+                name: sql_variant
+                type: named
+              type: custom
+            _neq:
+              argument_type:
+                name: sql_variant
+                type: named
+              type: custom
+        sysname:
+          aggregate_functions:
+            APPROX_COUNT_DISTINCT:
+              result_type:
+                name: bigint
+                type: named
+            COUNT:
+              result_type:
+                name: int
+                type: named
+            COUNT_BIG:
+              result_type:
+                name: bigint
+                type: named
+          comparison_operators:
+            _eq:
+              type: equal
+            _gt:
+              argument_type:
+                name: sysname
+                type: named
+              type: custom
+            _gte:
+              argument_type:
+                name: sysname
+                type: named
+              type: custom
+            _in:
+              type: in
+            _lt:
+              argument_type:
+                name: sysname
+                type: named
+              type: custom
+            _lte:
+              argument_type:
+                name: sysname
+                type: named
+              type: custom
+            _neq:
+              argument_type:
+                name: sysname
+                type: named
+              type: custom
+        text:
+          aggregate_functions:
+            COUNT_BIG:
+              result_type:
+                name: bigint
+                type: named
+            MAX:
+              result_type:
+                name: text
+                type: named
+            MIN:
+              result_type:
+                name: text
+                type: named
+          comparison_operators:
+            _eq:
+              type: equal
+            _in:
+              type: in
+            _like:
+              argument_type:
+                name: text
+                type: named
+              type: custom
+            _nlike:
+              argument_type:
+                name: text
+                type: named
+              type: custom
+          representation:
+            type: string
+        time:
+          aggregate_functions:
+            APPROX_COUNT_DISTINCT:
+              result_type:
+                name: bigint
+                type: named
+            COUNT:
+              result_type:
+                name: int
+                type: named
+            COUNT_BIG:
+              result_type:
+                name: bigint
+                type: named
+          comparison_operators:
+            _eq:
+              type: equal
+            _gt:
+              argument_type:
+                name: time
+                type: named
+              type: custom
+            _gte:
+              argument_type:
+                name: time
+                type: named
+              type: custom
+            _in:
+              type: in
+            _lt:
+              argument_type:
+                name: time
+                type: named
+              type: custom
+            _lte:
+              argument_type:
+                name: time
+                type: named
+              type: custom
+            _neq:
+              argument_type:
+                name: time
+                type: named
+              type: custom
+          representation:
+            type: string
+        timestamp:
+          aggregate_functions:
+            APPROX_COUNT_DISTINCT:
+              result_type:
+                name: bigint
+                type: named
+            COUNT:
+              result_type:
+                name: int
+                type: named
+            COUNT_BIG:
+              result_type:
+                name: bigint
+                type: named
+          comparison_operators:
+            _eq:
+              type: equal
+            _gt:
+              argument_type:
+                name: timestamp
+                type: named
+              type: custom
+            _gte:
+              argument_type:
+                name: timestamp
+                type: named
+              type: custom
+            _in:
+              type: in
+            _lt:
+              argument_type:
+                name: timestamp
+                type: named
+              type: custom
+            _lte:
+              argument_type:
+                name: timestamp
+                type: named
+              type: custom
+            _neq:
+              argument_type:
+                name: timestamp
+                type: named
+              type: custom
+          representation:
+            type: string
+        tinyint:
+          aggregate_functions:
+            APPROX_COUNT_DISTINCT:
+              result_type:
+                name: bigint
+                type: named
+            AVG:
+              result_type:
+                name: int
+                type: named
+            COUNT:
+              result_type:
+                name: int
+                type: named
+            COUNT_BIG:
+              result_type:
+                name: bigint
+                type: named
+            MAX:
+              result_type:
+                name: tinyint
+                type: named
+            MIN:
+              result_type:
+                name: tinyint
+                type: named
+            STDEV:
+              result_type:
+                name: float
+                type: named
+            STDEVP:
+              result_type:
+                name: float
+                type: named
+            SUM:
+              result_type:
+                name: int
+                type: named
+            VAR:
+              result_type:
+                name: float
+                type: named
+            VARP:
+              result_type:
+                name: float
+                type: named
+          comparison_operators:
+            _eq:
+              type: equal
+            _gt:
+              argument_type:
+                name: tinyint
+                type: named
+              type: custom
+            _gte:
+              argument_type:
+                name: tinyint
+                type: named
+              type: custom
+            _in:
+              type: in
+            _lt:
+              argument_type:
+                name: tinyint
+                type: named
+              type: custom
+            _lte:
+              argument_type:
+                name: tinyint
+                type: named
+              type: custom
+            _neq:
+              argument_type:
+                name: tinyint
+                type: named
+              type: custom
+          representation:
+            type: int16
+        uniqueidentifier:
+          aggregate_functions:
+            APPROX_COUNT_DISTINCT:
+              result_type:
+                name: bigint
+                type: named
+            COUNT:
+              result_type:
+                name: int
+                type: named
+            COUNT_BIG:
+              result_type:
+                name: bigint
+                type: named
+            MAX:
+              result_type:
+                name: uniqueidentifier
+                type: named
+            MIN:
+              result_type:
+                name: uniqueidentifier
+                type: named
+          comparison_operators:
+            _eq:
+              type: equal
+            _gt:
+              argument_type:
+                name: uniqueidentifier
+                type: named
+              type: custom
+            _gte:
+              argument_type:
+                name: uniqueidentifier
+                type: named
+              type: custom
+            _in:
+              type: in
+            _lt:
+              argument_type:
+                name: uniqueidentifier
+                type: named
+              type: custom
+            _lte:
+              argument_type:
+                name: uniqueidentifier
+                type: named
+              type: custom
+            _neq:
+              argument_type:
+                name: uniqueidentifier
+                type: named
+              type: custom
+          representation:
+            type: uuid
+        varbinary:
+          aggregate_functions:
+            APPROX_COUNT_DISTINCT:
+              result_type:
+                name: bigint
+                type: named
+            COUNT:
+              result_type:
+                name: int
+                type: named
+            COUNT_BIG:
+              result_type:
+                name: bigint
+                type: named
+          comparison_operators:
+            _eq:
+              type: equal
+            _gt:
+              argument_type:
+                name: varbinary
+                type: named
+              type: custom
+            _gte:
+              argument_type:
+                name: varbinary
+                type: named
+              type: custom
+            _in:
+              type: in
+            _lt:
+              argument_type:
+                name: varbinary
+                type: named
+              type: custom
+            _lte:
+              argument_type:
+                name: varbinary
+                type: named
+              type: custom
+            _neq:
+              argument_type:
+                name: varbinary
+                type: named
+              type: custom
+          representation:
+            type: string
+        varchar:
+          aggregate_functions:
+            APPROX_COUNT_DISTINCT:
+              result_type:
+                name: bigint
+                type: named
+            COUNT:
+              result_type:
+                name: int
+                type: named
+            COUNT_BIG:
+              result_type:
+                name: bigint
+                type: named
+            MAX:
+              result_type:
+                name: varchar
+                type: named
+            MIN:
+              result_type:
+                name: varchar
+                type: named
+          comparison_operators:
+            _eq:
+              type: equal
+            _gt:
+              argument_type:
+                name: varchar
+                type: named
+              type: custom
+            _gte:
+              argument_type:
+                name: varchar
+                type: named
+              type: custom
+            _in:
+              type: in
+            _like:
+              argument_type:
+                name: varchar
+                type: named
+              type: custom
+            _lt:
+              argument_type:
+                name: varchar
+                type: named
+              type: custom
+            _lte:
+              argument_type:
+                name: varchar
+                type: named
+              type: custom
+            _neq:
+              argument_type:
+                name: varchar
+                type: named
+              type: custom
+            _nlike:
+              argument_type:
+                name: varchar
+                type: named
+              type: custom
+          representation:
+            type: string
+        xml:
+          aggregate_functions:
+            APPROX_COUNT_DISTINCT:
+              result_type:
+                name: bigint
+                type: named
+            COUNT:
+              result_type:
+                name: int
+                type: named
+            COUNT_BIG:
+              result_type:
+                name: bigint
+                type: named
+          comparison_operators:
+            _eq:
+              type: equal
+            _gt:
+              argument_type:
+                name: xml
+                type: named
+              type: custom
+            _gte:
+              argument_type:
+                name: xml
+                type: named
+              type: custom
+            _in:
+              type: in
+            _lt:
+              argument_type:
+                name: xml
+                type: named
+              type: custom
+            _lte:
+              argument_type:
+                name: xml
+                type: named
+              type: custom
+            _neq:
+              argument_type:
+                name: xml
+                type: named
+              type: custom
+          representation:
+            type: string
+    capabilities:
+      capabilities:
+        mutation:
+          explain: {}
+          transactional: {}
+        query:
+          aggregates: {}
+          exists:
+            nested_collections: {}
+          explain: {}
+          nested_fields:
+            filter_by: {}
+            order_by: {}
+          variables: {}
+        relationships:
+          order_by_aggregate: {}
+          relation_comparisons: {}
+      version: 0.1.6

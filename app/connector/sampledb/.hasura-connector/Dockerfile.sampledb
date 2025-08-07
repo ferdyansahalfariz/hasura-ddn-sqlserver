@@ -1,0 +1,2 @@
+FROM ghcr.io/hasura/ndc-sqlserver:v2.0.2
+COPY ./ /etc/connector

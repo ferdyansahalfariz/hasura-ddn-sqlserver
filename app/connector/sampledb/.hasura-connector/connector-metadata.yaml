@@ -1,0 +1,18 @@
+version: v1
+packagingDefinition:
+  type: PrebuiltDockerImage
+  dockerImage: ghcr.io/hasura/ndc-sqlserver:v2.0.2
+supportedEnvironmentVariables:
+  - name: CONNECTION_URI
+    description: The SQL server connection URI
+    required: true
+commands:
+  update: hasura-ndc-sqlserver update
+cliPlugin:
+  type: null
+  name: ndc-sqlserver
+  version: v2.0.2
+dockerComposeWatch:
+  - path: ./
+    action: sync+restart
+    target: /etc/connector

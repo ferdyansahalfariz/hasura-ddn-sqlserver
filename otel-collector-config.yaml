@@ -1,0 +1,54 @@
+exporters:
+      otlp/elastic:
+          endpoint: "http://10.100.14.212:8200"
+          tls:
+            insecure: true
+      # otlphttp:
+      #     endpoint: "http://OTLP:4318"
+      #     tls:
+      #       insecure: true
+processors:
+      batch: {}
+      transform:
+        error_mode: ignore
+        trace_statements:
+          - context: resource
+            statements:
+              - set(attributes["service.name"], "sqlserver-ferdy")
+              - set(attributes["deployment.environment"], "development")
+receivers:
+      otlp:
+        protocols:
+          grpc:
+            endpoint: 0.0.0.0:4317
+          http:
+            endpoint: 0.0.0.0:4318
+service:
+      pipelines:
+        logs:
+          exporters:
+            - otlp/elastic
+            - otlphttp
+          processors:
+            - batch
+            - transform
+          receivers:
+            - otlp
+        metrics:
+          exporters:
+            - otlp/elastic
+            - otlphttp
+          processors:
+            - batch
+            - transform
+          receivers:
+            - otlp
+        traces:
+          exporters:
+            - otlp/elastic
+            - otlphttp
+          processors:
+            - batch
+            - transform
+          receivers:
+            - otlp

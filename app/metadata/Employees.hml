@@ -1,0 +1,168 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: Employees
+  fields:
+    - name: email
+      type: String_1
+    - name: employeeId
+      type: Int32!
+    - name: firstName
+      type: String_1
+    - name: hireDate
+      type: Date
+    - name: lastName
+      type: String_1
+  graphql:
+    typeName: Employees
+    inputTypeName: EmployeesInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: sampledb
+      dataConnectorObjectType: Employees
+      fieldMapping:
+        email:
+          column:
+            name: Email
+        employeeId:
+          column:
+            name: EmployeeID
+        firstName:
+          column:
+            name: FirstName
+        hireDate:
+          column:
+            name: HireDate
+        lastName:
+          column:
+            name: LastName
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: Employees
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - email
+          - employeeId
+          - firstName
+          - hireDate
+          - lastName
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: EmployeesBoolExp
+  operand:
+    object:
+      type: Employees
+      comparableFields:
+        - fieldName: email
+          booleanExpressionType: NvarcharBoolExp
+        - fieldName: employeeId
+          booleanExpressionType: IntBoolExp
+        - fieldName: firstName
+          booleanExpressionType: NvarcharBoolExp
+        - fieldName: hireDate
+          booleanExpressionType: DateBoolExp
+        - fieldName: lastName
+          booleanExpressionType: NvarcharBoolExp
+      comparableRelationships: []
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: EmployeesBoolExp
+
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: EmployeesAggExp
+  operand:
+    object:
+      aggregatedType: Employees
+      aggregatableFields:
+        - fieldName: email
+          aggregateExpression: NvarcharAggExp
+        - fieldName: employeeId
+          aggregateExpression: IntAggExp
+        - fieldName: firstName
+          aggregateExpression: NvarcharAggExp
+        - fieldName: hireDate
+          aggregateExpression: DateAggExp
+        - fieldName: lastName
+          aggregateExpression: NvarcharAggExp
+  count:
+    enable: true
+  graphql:
+    selectTypeName: EmployeesAggExp
+
+---
+kind: OrderByExpression
+version: v1
+definition:
+  name: EmployeesOrderByExp
+  operand:
+    object:
+      orderedType: Employees
+      orderableFields:
+        - fieldName: email
+          orderByExpression: String1OrderByExp
+        - fieldName: employeeId
+          orderByExpression: Int32OrderByExp
+        - fieldName: firstName
+          orderByExpression: String1OrderByExp
+        - fieldName: hireDate
+          orderByExpression: DateOrderByExp
+        - fieldName: lastName
+          orderByExpression: String1OrderByExp
+      orderableRelationships: []
+  graphql:
+    expressionTypeName: EmployeesOrderByExp
+
+---
+kind: Model
+version: v2
+definition:
+  name: Employees
+  objectType: Employees
+  source:
+    dataConnectorName: sampledb
+    collection: Employees
+  filterExpressionType: EmployeesBoolExp
+  aggregateExpression: EmployeesAggExp
+  orderByExpression: EmployeesOrderByExp
+  graphql:
+    selectMany:
+      queryRootField: employees
+      subscription:
+        rootField: employees
+    selectUniques:
+      - queryRootField: employeesByEmployeeId
+        uniqueIdentifier:
+          - employeeId
+        subscription:
+          rootField: employeesByEmployeeId
+    filterInputTypeName: EmployeesFilterInput
+    aggregate:
+      queryRootField: employeesAggregate
+      subscription:
+        rootField: employeesAggregate
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: Employees
+  permissions:
+    - role: admin
+      select:
+        filter: null
+        allowSubscriptions: true
+
