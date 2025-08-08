@@ -4,7 +4,7 @@ exporters:
           tls:
             insecure: true
       # otlphttp:
-      #     endpoint: "http://OTLP:4318"
+      #     endpoint: "http://OTEL:4318"
       #     endpoint: "http://172.18.247.169:9090" // OTEL EXISTING DEV BRI
       #     tls:
       #       insecure: true
