@@ -124,3 +124,22 @@ service:
           receivers:
             - otlp
 ```
+
+# Hasil Testing
+
+Setelah project ini dijalankan menggunakan `ddn run docker-start` dan dilakukan run query ke database sql server dari local seperti berikut, maka observability akan terkirim ke APM dan dapat langsung di lihat di kibana.
+
+<img width="1919" height="965" alt="image" src="https://github.com/user-attachments/assets/17df6daf-3b02-4b46-b8c6-a82b11f81b4d" />
+
+Kemudian jika di cek di kibana, bisa dilihat bahwa observability sudah masuk ke APM dengan pengaturan service.name dan deployment.environment yang sudah di setting pada `otel-collector-config.yaml`.
+
+Terlihat ada dua jenis transaction yakni `/graphql` yang berisi hasil query yang dilakukan ke connector sql server dan `request` yang berisi history dari hit ke `/health`
+
+<img width="1919" height="920" alt="image" src="https://github.com/user-attachments/assets/026d260e-00bd-4ea5-8540-1f57b075f995" />
+
+Jika masuk ke `/graphql`, maka dapat ditemukan history dari query yang dilakukan seperti berikut yang menunjukan query ke `EmployeeTestingQuery` yang sudah sesuai dengan query yang sebelumnya baru saja di hit ke sql server connector. 
+
+<img width="1919" height="928" alt="image" src="https://github.com/user-attachments/assets/99d71ab6-0076-4158-91a9-a1e655c2eaa7" />
+
+<img width="1919" height="932" alt="image" src="https://github.com/user-attachments/assets/6dea2e42-078f-4cf0-ad81-2ff3fa594d04" />
+
