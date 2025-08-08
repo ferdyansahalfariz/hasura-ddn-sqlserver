@@ -5,6 +5,7 @@ exporters:
             insecure: true
       # otlphttp:
       #     endpoint: "http://OTLP:4318"
+      #     endpoint: "http://172.18.247.169:9090" // OTEL EXISTING DEV BRI
       #     tls:
       #       insecure: true
 processors:
@@ -28,7 +29,7 @@ service:
         logs:
           exporters:
             - otlp/elastic
-            - otlphttp
+            # - otlphttp
           processors:
             - batch
             - transform
@@ -37,7 +38,7 @@ service:
         metrics:
           exporters:
             - otlp/elastic
-            - otlphttp
+            # - otlphttp
           processors:
             - batch
             - transform
@@ -46,7 +47,7 @@ service:
         traces:
           exporters:
             - otlp/elastic
-            - otlphttp
+            # - otlphttp
           processors:
             - batch
             - transform
