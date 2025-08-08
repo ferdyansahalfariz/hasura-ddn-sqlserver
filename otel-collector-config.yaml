@@ -17,6 +17,8 @@ processors:
             statements:
               - set(attributes["service.name"], "sqlserver-ferdy")
               - set(attributes["deployment.environment"], "development")
+              # - set(attributes["service.name"], "{{ .Values.serviceNameOtel }}")
+              # - set(attributes["deployment.environment"], "{{ .Values.environmentOtel }}")
 receivers:
       otlp:
         protocols:
